@@ -1,0 +1,159 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<math.h>
+//#include<cstring>
+using namespace std;
+
+int main()
+{
+	//vs c++中使用scanf,属性SDL检查设置为否
+	/*
+	int a;
+	scanf("%d", &a);
+	cout << a << endl;
+	*/
+
+
+vector<int> arr;//arr[]是质数的集合
+int p = 0;//p是数组长度
+for (int i = 2; i < 10001; i++)
+{
+	
+	for (int j = 1; j <= i; j++)
+	{
+		if (j == 1 ) continue;
+		if (j == i)
+		{
+			arr.push_back(i);
+			p++;
+			cout << i << "  ";
+		}
+		else
+		{
+			float f = ((float)i / j);
+			int q = i / j;
+			if ((f-q) == 0)
+				break;
+			else continue;
+		}
+
+	}
+}
+cout << endl;
+system("pause");
+system("cls");
+int n=0;
+vector<int> arr1;
+for (int i = 0;; i++)
+{
+	
+	cout << "请输入第" << i + 1 << "个正数" << "(输入0结束)" << endl;
+	int temp;
+	cin >> temp;
+	if (temp < 0)
+	{
+		cout << "输入错误" << endl;
+		system("pause");
+		return 0;
+	}
+	else
+	{
+		if (temp == 0)
+		{
+			break;
+		}
+		else
+		{
+			arr1.push_back(temp);
+			n++;
+		}
+	}
+}
+if (n == 0)//n是输入数组的长度
+{
+	cout << "即将结束" << endl;
+	system("pause");
+	return 0;
+}
+vector<int> count;
+int q = 0;//q是count数组长度
+for (int i = 0; i < n; i++)
+{
+	count.push_back(0); 
+	q++;
+	int min = -1;
+	int mid = -1;
+	int max = -1;
+	for (int j = 1;; j++)
+	{
+		if (j == 1)//j是连续的质数的个数
+		{
+			for (int z = 0; z < p; z++)
+			{
+				if (arr[z] == arr1[i])
+				{
+					mid = z; 
+					count[q - 1]++;
+					break;
+				}
+				else
+				{
+					if (arr[z]<arr1[i] && arr[z + 1]>arr1[i])
+					{
+						min = z;
+						max = z + 1;
+						break;
+					}
+					else continue;
+				}
+			}
+			continue;//避免j==1时执行下面的语句
+		}
+		if (mid != -1)//本身即是质数，mid值存在
+		{
+			if ((j - 1) >= mid)break;
+			for (int x = 0; x + j - 1 < mid; x++)
+			{
+				int sum = 0;
+				for (int y = 0; y < j; y++)
+				{
+					sum += arr[x + y];
+				}
+				if (sum - arr1[i] == 0)
+				{
+					count[q - 1]++;
+				}
+			}
+		}
+		else//本身不是质数，min、max值存在
+		{
+			if ((j - 1) >= max) break;
+			for (int x = 0; x + j - 1 < max; x++)
+			{
+				int sum = 0;
+				for (int y = 0; y < j; y++)
+				{
+					sum += arr[x + y];
+				}
+				if (sum - arr1[i] == 0)
+				{
+					count[q - 1]++;
+				}
+			}
+
+		}
+	}
+}
+cout << "结果为" << endl;
+for (int i = 0; i < q; i++)
+{
+	cout << count[i] << endl;
+}
+
+	//getchar();
+	system("pause");
+	return 0;
+}
+
+
