@@ -1,0 +1,120 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<math.h>
+//#include<cstring>
+using namespace std;
+
+int main()
+{
+	//vs c++中使用scanf,属性SDL检查设置为否
+	/*
+	int a;
+	scanf("%d", &a);
+	cout << a << endl;
+	*/
+
+
+vector<int> arr;//arr[]是质数的集合
+int p = 0;//p是数组长度
+for (int i = 2; i < 100001; i++)
+{
+	
+	for (int j = 1; j <= i; j++)
+	{
+		if (j == 1 ) continue;
+		if (j == i)
+		{
+			arr.push_back(i);
+			p++;
+			
+		}
+		else
+		{
+			float f = ((float)i / j);
+			int q = i / j;
+			if ((f-q) == 0)
+				break;
+			else continue;
+		}
+
+	}
+}
+
+int n=0;//n为输入数组的长度
+vector<int> arr1;
+for (int i = 0;; i++)
+{
+	int temp;
+	FLAG:cout << "请输入第" << i + 1 << "个大于4的偶数整数（若要结束输入，请输入0）" << endl;
+	cin >> temp;
+	if (temp == 0)
+	{
+		break;
+	}
+	else
+	{
+		if ((temp >= 6 )&& (temp % 2 == 0))
+		{
+			arr1.push_back(temp);
+			n++;
+		}
+		else
+		{
+			cout << "输入错误" << endl;
+			goto FLAG;
+		}
+	}
+
+}
+if (n == 0)
+{
+	cout << "无输入数据" << endl;
+	cout << "即将退出程序" << endl;
+	system("pause");
+	return 0;
+}
+for (int i = 0; i < n; i++)
+{
+	int max;
+    for (int z = 0;; z++)
+	{
+			if (arr[z] > arr1[i])
+			{
+				max = z;
+				break;
+			}
+	}
+	bool bo = false;
+	for (int j = 0;j<max; j++)
+	{
+		int temp = arr1[i] - arr[j];
+		
+		
+		for (int x = 0; x < max; x++)
+		{
+			if (temp == arr[x])
+			{
+				cout << arr1[i] << "=" << arr[j] << "+" << temp << endl;
+				bo = true;
+				goto FLAG1;
+			}
+		}
+	}
+	if (!bo)
+	{
+		cout << "Goldbach's conjecture is wrong" << endl;
+	}
+	
+FLAG1:continue;
+	
+}
+
+
+
+	//getchar();
+	system("pause");
+	return 0;
+}
+
+
